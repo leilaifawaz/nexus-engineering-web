@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
@@ -17,7 +19,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-electric-gradient rounded-lg flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
@@ -25,18 +27,28 @@ const Navigation = () => {
               <span className="text-primary">emobility</span>
               <span className="text-secondary ml-1">nexus</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
-              >
-                {item.name}
-              </a>
+              item.href.startsWith('#') ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
             <Button size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric">
               Get Quote
@@ -59,14 +71,25 @@ const Navigation = () => {
           <div className="md:hidden py-4 border-t border-border/50">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors font-medium px-2 py-1"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
+                item.href.startsWith('#') ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-foreground hover:text-primary transition-colors font-medium px-2 py-1"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-foreground hover:text-primary transition-colors font-medium px-2 py-1"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
               <Button size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric w-fit">
                 Get Quote
