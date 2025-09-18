@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { sendContactEmail, openMailtoFallback, type ContactFormData } from "@/lib/emailService";
 import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,12 +20,12 @@ const contactFormSchema = z.object({
   projectDetails: z.string().min(10, "Please provide at least 10 characters describing your project").max(1000, "Project details must be less than 1000 characters"),
 });
 
-type ContactFormData = z.infer<typeof contactFormSchema>;
+type FormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
   
-  const form = useForm<ContactFormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       firstName: "",
@@ -36,18 +37,25 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async (data: FormData) => {
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Here you would typically send the data to your backend/API
-      console.log("Form submitted:", data);
+      // Convert to ContactFormData format expected by email service
+      const emailData: ContactFormData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        company: data.company,
+        serviceType: data.serviceType,
+        projectDetails: data.projectDetails,
+      };
+
+      // Try to send email via EmailJS
+      await sendContactEmail(emailData);
       
       // Show success toast
       toast({
         title: "Message sent successfully!",
-        description: "Thank you for your interest. We'll get back to you soon.",
+        description: "Thank you for your interest. We'll get back to you within 72 hours.",
         variant: "default",
       });
       
@@ -55,19 +63,39 @@ const Contact = () => {
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);
+      
+      // Show error toast with fallback option
       toast({
-        title: "Error sending message",
-        description: "Something went wrong. Please try again or contact us directly at info@emobilitynexus.com",
+        title: "Having trouble sending your message?",
+        description: "We couldn't send your message automatically. Would you like to open your email client instead?",
         variant: "destructive",
       });
+
+      // Offer manual email fallback after a brief delay
+      setTimeout(() => {
+        const userWantsFallback = window.confirm(
+          "Would you like to open your email client to send your message manually?"
+        );
+        if (userWantsFallback) {
+          const emailData: ContactFormData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            company: data.company,
+            serviceType: data.serviceType,
+            projectDetails: data.projectDetails,
+          };
+          openMailtoFallback(emailData);
+        }
+      }, 2000);
     }
   };
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      details: "info@emobilitynexus.com",
-      link: "mailto:info@emobilitynexus.com"
+      details: "ramez-haidar@emobilitynexus.com",
+      link: "mailto:ramez-haidar@emobilitynexus.com"
     },
     {
       icon: MapPin,
