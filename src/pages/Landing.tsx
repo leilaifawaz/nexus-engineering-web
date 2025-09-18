@@ -3,7 +3,7 @@ import Services from "@/components/Services";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 
-const Index = () => {
+const Landing = () => {
   return (
     <main>
       <Hero />
@@ -14,4 +14,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Landing;

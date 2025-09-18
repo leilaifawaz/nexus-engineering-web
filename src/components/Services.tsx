@@ -26,7 +26,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section id="services" className="py-20 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -74,19 +74,23 @@ const Services = () => {
         <div className="mt-16 text-center">
           <div className="bg-subtle-gradient rounded-2xl p-8 md:p-12 border border-primary/10">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Ready to Connect with Excellence?
+              Ready to Connect?
             </h3>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
               Whether you need training, consulting, or specialized talent, we're your nexus to electrification success. 
               Let's power your next breakthrough together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-primary hover:bg-primary-dark text-primary-foreground px-6 py-3 rounded-lg font-medium shadow-electric transition-all hover:shadow-energy">
-                Get Started
-              </button>
-              <button className="border border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-6 py-3 rounded-lg font-medium transition-all">
-                Learn More
-              </button>
+              <a href="#contact">
+                <button className="bg-primary hover:bg-primary-dark text-primary-foreground px-6 py-3 rounded-lg font-medium shadow-electric transition-all hover:shadow-energy">
+                  Get Started
+                </button>
+              </a>
+              <a href="#contact">
+                <button className="border border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground px-6 py-3 rounded-lg font-medium transition-all">
+                  Learn More
+                </button>
+              </a>
             </div>
           </div>
         </div>
