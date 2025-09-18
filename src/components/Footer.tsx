@@ -13,7 +13,6 @@ const Footer = () => {
   const quickLinks = [
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
-    { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
     { name: "Careers", href: "#careers" },
     { name: "Blog", href: "#blog" }
@@ -99,7 +98,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-background/50 text-sm">
-            © 2024 emobility nexus engineering LLC. All rights reserved.
+            © 2024 eMobility nexus engineering LLC. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="text-background/50 hover:text-background text-sm transition-colors">

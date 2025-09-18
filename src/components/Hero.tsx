@@ -36,9 +36,9 @@ const Hero = () => {
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-electric-gradient bg-clip-text text-transparent leading-tight">
-          emobility nexus
+          eMobility Nexus
           <br />
-          <span className="text-foreground">engineering LLC</span>
+          <span className="text-foreground">Engineering LLC</span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -47,13 +47,17 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button size="lg" className="group bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric">
-            Start Training
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button variant="outline" size="lg" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground">
-            Get Consulting
-          </Button>
+          <a href="#contact">
+            <Button size="lg" className="group bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric">
+              Start Training
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </a>
+          <a href="#contact">
+            <Button variant="outline" size="lg" className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground">
+              Get Consulting
+            </Button>
+          </a>
         </div>
 
         {/* Stats */}
