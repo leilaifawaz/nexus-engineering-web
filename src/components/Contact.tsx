@@ -2,9 +2,66 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+const contactFormSchema = z.object({
+  firstName: z.string().min(1, "First name must be at least 1 character").max(50, "First name must be less than 50 characters"),
+  lastName: z.string().min(1, "Last name must be at least 1 character").max(50, "Last name must be less than 50 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  company: z.string().optional(),
+  serviceType: z.string().min(1, "Please select a service type"),
+  projectDetails: z.string().min(10, "Please provide at least 10 characters describing your project").max(1000, "Project details must be less than 1000 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
+  const { toast } = useToast();
+  
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      serviceType: "",
+      projectDetails: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Here you would typically send the data to your backend/API
+      console.log("Form submitted:", data);
+      
+      // Show success toast
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for your interest. We'll get back to you soon.",
+        variant: "default",
+      });
+      
+      // Reset form
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error sending message",
+        description: "Something went wrong. Please try again or contact us directly at info@emobilitynexus.com",
+        variant: "destructive",
+      });
+    }
+  };
   const contactInfo = [
     {
       icon: Mail,
@@ -46,64 +103,128 @@ const Contact = () => {
                 <CardTitle className="text-2xl">Start Your Project Today</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      First Name *
-                    </label>
-                    <Input placeholder="John" className="border-border/50 focus:border-primary" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Last Name *
-                    </label>
-                    <Input placeholder="Doe" className="border-border/50 focus:border-primary" />
-                  </div>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Email *
-                    </label>
-                    <Input type="email" placeholder="john@company.com" className="border-border/50 focus:border-primary" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
-                      Company
-                    </label>
-                    <Input placeholder="Your Company" className="border-border/50 focus:border-primary" />
-                  </div>
-                </div>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="firstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>First Name *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="" className="border-border/50 focus:border-primary" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Last Name *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="" className="border-border/50 focus:border-primary" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email *</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="" className="border-border/50 focus:border-primary" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Company</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Your Company" className="border-border/50 focus:border-primary" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Service Type
-                  </label>
-                  <select className="w-full px-3 py-2 border border-border/50 rounded-md focus:outline-none focus:border-primary">
-                    <option>Select a service...</option>
-                    <option>High-Voltage Training & Certification</option>
-                    <option>Engineering Consulting</option>
-                    <option>Workforce Contracting & Staffing</option>
-                    <option>Strategic Partnership</option>
-                    <option>Other</option>
-                  </select>
-                </div>
+                    <FormField
+                      control={form.control}
+                      name="serviceType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Service Type *</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="border-border/50 focus:border-primary">
+                                <SelectValue placeholder="Select a service..." />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="high-voltage-training">High-Voltage Training & Certification</SelectItem>
+                              <SelectItem value="engineering-consulting">Engineering Consulting</SelectItem>
+                              <SelectItem value="workforce-contracting">Workforce Contracting & Staffing</SelectItem>
+                              <SelectItem value="strategic-partnership">Strategic Partnership</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Project Details *
-                  </label>
-                  <Textarea 
-                    placeholder="Tell us about your project requirements, timeline, and goals..."
-                    className="min-h-[120px] border-border/50 focus:border-primary"
-                  />
-                </div>
+                    <FormField
+                      control={form.control}
+                      name="projectDetails"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Project Details *</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Tell us about your project requirements, timeline, and goals..."
+                              className="min-h-[120px] border-border/50 focus:border-primary"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                <Button className="w-full bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric">
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
-                </Button>
+                    <Button 
+                      type="submit" 
+                      disabled={form.formState.isSubmitting}
+                      className="w-full bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric"
+                    >
+                      {form.formState.isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </CardContent>
             </Card>
           </div>
