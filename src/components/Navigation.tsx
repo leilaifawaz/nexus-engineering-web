@@ -27,8 +27,8 @@ const Navigation = () => {
               <Zap className="w-5 h-5 text-white" />
             </div>
             <span className="font-bold text-xl">
-              <span className="text-primary">emobility</span>
-              <span className="text-secondary ml-1">nexus</span>
+              <span className="text-primary">eMobility</span>
+              <span className="text-secondary ml-1">Nexus</span>
             </span>
           </button>
 

@@ -86,6 +86,7 @@ const Contact = () => {
                     <option>Engineering Consulting</option>
                     <option>Workforce Contracting & Staffing</option>
                     <option>Strategic Partnership</option>
+                    <option>Other</option>
                   </select>
                 </div>
 
@@ -147,7 +148,7 @@ const Contact = () => {
                     Global reach & expertise
                   </li>
                   <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
                     Safety & compliance focused
                   </li>
                   <li className="flex items-center">
