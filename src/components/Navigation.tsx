@@ -10,6 +10,13 @@ const Navigation = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView();
+    }
+  };
+
   const navItems = [
     { name: "Home", href: "#top", action: scrollToTop },
     { name: "Services", href: "#services" },
@@ -53,7 +60,11 @@ const Navigation = () => {
                 </a>
               )
             ))}
-            <Button size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric">
+            <Button 
+              size="sm" 
+              className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric"
+              onClick={scrollToContact}
+            >
               Get Quote
             </Button>
           </div>
@@ -96,7 +107,14 @@ const Navigation = () => {
                   </a>
                 )
               ))}
-              <Button size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric w-fit">
+              <Button 
+                size="sm" 
+                className="bg-primary hover:bg-primary-dark text-primary-foreground shadow-electric w-fit"
+                onClick={() => {
+                  scrollToContact();
+                  setIsOpen(false);
+                }}
+              >
                 Get Quote
               </Button>
             </div>
