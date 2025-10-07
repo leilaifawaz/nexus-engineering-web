@@ -94,8 +94,8 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      details: "ramez-haidar@emobilitynexus.com",
-      link: "mailto:ramez-haidar@emobilitynexus.com"
+      details: "ramezhaidar@emobilitynexus.com",
+      link: "mailto:ramezhaidar@emobilitynexus.com"
     },
     {
       icon: MapPin,

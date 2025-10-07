@@ -82,6 +82,6 @@ Project Details:
 ${formData.projectDetails}
   `);
 
-  const mailtoLink = `mailto:ramez-haidar@emobilitynexus.com?subject=${subject}&body=${body}`;
+  const mailtoLink = `mailto:ramezhaidar@emobilitynexus.com?subject=${subject}&body=${body}`;
   window.open(mailtoLink, '_blank');
 };
