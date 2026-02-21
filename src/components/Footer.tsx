@@ -27,7 +27,7 @@ const Footer = () => {
                 <Zap className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-xl">
-                <span className="text-primary-light">eMobility</span>
+                <span className="text-primary-light">E-Mobility</span>
                 <span className="text-secondary-light ml-1">Nexus</span>
               </span>
             </div>
@@ -88,7 +88,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-background/50 text-sm">
-            © 2024 eMobility Nexus Engineering LLC. All rights reserved.
+            © 2024 E-Mobility Nexus Engineering LLC. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="text-background/50 hover:text-background text-sm transition-colors">

@@ -36,7 +36,7 @@ const Hero = () => {
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-electric-gradient bg-clip-text text-transparent leading-tight">
-          eMobility Nexus
+          E-Mobility Nexus
           <br />
           <span className="text-foreground">Engineering LLC</span>
         </h1>

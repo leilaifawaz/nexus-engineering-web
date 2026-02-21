@@ -288,7 +288,7 @@ const Contact = () => {
               <CardContent className="p-6">
                 <h3 className="font-semibold text-lg mb-3">Our Commitment</h3>
                 <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  At eMobility Nexus Engineering LLC, we are committed to being the connection point (nexus) 
+                  At E-Mobility Nexus Engineering LLC, we are committed to being the connection point (nexus) 
                   between knowledge, people, and technology — empowering the future of electrification worldwide.
                 </p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
